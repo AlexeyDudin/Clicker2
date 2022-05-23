@@ -1,0 +1,24 @@
+﻿<mah:MetroWindow x:Class="Clicker2.MainWindow"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Clicker2"
+        mc:Ignorable="d"
+        Title="Кликер" Height="600" Width="800"
+        x:Name="MainForm">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="0"
+                  Grid.Row="0"
+                  ItemsSource="{Binding ElementName=MainForm, Path=ParamList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование задания" Width="100*" Binding="{Binding Path=ParamName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</mah:MetroWindow>
