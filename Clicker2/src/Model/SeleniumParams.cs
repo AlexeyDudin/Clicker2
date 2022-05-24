@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
@@ -12,33 +13,33 @@ namespace Clicker.src.Model
     {
         private string paramName;
         
-        private string findUrl;
-        private string request;
+        private string findUrl = "";
+        private string request = "";
 
-        private Browsers browser;
+        private Browsers browser = Browsers.chrome;
 
-        private string finderUrl;
+        private string finderUrl = "";
 
-        private List<string> explicitDomainList;
+        private ObservableCollection<string> explicitDomainList = new ObservableCollection<string>();
 
-        private bool gotoPageAndRunNext;
-        private bool gotoPageAndWait;
-        private bool gotoPageAndRun;
-        private int timeWork;
+        private bool gotoPageAndRunNext = true;
+        private bool gotoPageAndWait = false;
+        private bool gotoPageAndRun = false;
+        private int timeWork = 0;
 
-        private IPAddress proxyIP;
-        private IPEndPoint proxyPort;
-        private string proxyLogin;
-        private string proxyPassword;
+        private IPAddress proxyIP = IPAddress.Parse("127.0.0.1");
+        private IPEndPoint proxyPort = new IPEndPoint(IPAddress.Loopback, 80);
+        private string proxyLogin = "";
+        private string proxyPassword = "";
 
-        private string userAgent;
+        private string userAgent = "";
 
-        private bool useJS;
-        private bool useCookie;
+        private bool useJS = true;
+        private bool useCookie = true;
 
-        private bool useTextLog;
-        private bool useImageLog;
-        private bool useVideoLog;
+        private bool useTextLog = true;
+        private bool useImageLog = false;
+        private bool useVideoLog = false;
 
         public Browsers Browser { get => browser; set => browser = value; }
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }
@@ -49,7 +50,7 @@ namespace Clicker.src.Model
         public string ParamName { get => paramName; set => paramName = value; }
         public string ProxyLogin { get => proxyLogin; set => proxyLogin = value; }
         public string ProxyPassword { get => proxyPassword; set => proxyPassword = value; }
-        public List<string> ExplicitDomain { get => explicitDomainList; set => explicitDomainList = value; }
+        public ObservableCollection<string> ExplicitDomain { get => explicitDomainList; set => explicitDomainList = value; }
         public bool GotoPageAndWait { get => gotoPageAndWait; set => gotoPageAndWait = value; }
         public bool GotoPageAndRun { get => gotoPageAndRun; set => gotoPageAndRun = value; }
         public int TimeWork { get => timeWork; set => timeWork = value; }
