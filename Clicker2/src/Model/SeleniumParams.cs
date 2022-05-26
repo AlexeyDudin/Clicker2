@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clicker2.src.Model.URLs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace Clicker.src.Model
     {
         private string paramName;
         
-        private string findUrl = "";
+        private ObservableCollection<UrlClass> findUrl = new ObservableCollection<UrlClass>();
         private string request = "";
 
         private Browsers browser = Browsers.chrome;
@@ -45,7 +46,7 @@ namespace Clicker.src.Model
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }
         public IPAddress ProxyIP { get => proxyIP; set => proxyIP = value; }
         public IPEndPoint ProxyPort { get => proxyPort; set => proxyPort = value; }
-        public string FindUrl { get => findUrl; set => findUrl = value; }
+        public ObservableCollection<UrlClass> FindUrl { get => findUrl; set => findUrl = value; }
         public string Request { get => request; set => request = value; }
         public string ParamName { get => paramName; set => paramName = value; }
         public string ProxyLogin { get => proxyLogin; set => proxyLogin = value; }

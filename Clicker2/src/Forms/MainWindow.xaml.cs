@@ -27,6 +27,9 @@ namespace Clicker2
         private SeleniumParams selectedParam = new SeleniumParams();
         private ObservableCollection<SeleniumParams> paramList = new ObservableCollection<SeleniumParams>();
         private int counterParams = 1;
+
+        private int maxProcCount = 1;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +51,16 @@ namespace Clicker2
             {
                 selectedParam = value;
                 OnPropertyChanged("SelectedParam");
+            }
+        }
+
+        public int MaxProcCount
+        {
+            get => maxProcCount;
+            set
+            {
+                maxProcCount = value;
+                OnPropertyChanged("MaxProcCount");
             }
         }
 

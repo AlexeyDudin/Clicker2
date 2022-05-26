@@ -4,16 +4,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:browsers="clr-namespace:Clicker.src.Model"
         xmlns:local="clr-namespace:Clicker2"
         mc:Ignorable="d"
         Title="Кликер" Height="600" Width="800"
         x:Name="MainForm">
+
+    <mah:MetroWindow.Resources>
+        <ObjectDataProvider x:Key="BrowsersEnum"
+                        ObjectType="{x:Type sys:Enum}"
+                        MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="browsers:Browsers"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </mah:MetroWindow.Resources>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <mah:NumericUpDown Value="{Binding ElementName=MainForm, Path=MaxProcCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Minimum="1"
+                               Maximum="30"></mah:NumericUpDown>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="75*"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="60"/>
@@ -37,6 +57,66 @@
                 <Button Grid.Column="1" Content="Удалить" Click="RemoveClick"/>
             </Grid>
         </Grid>
-        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="Искомое имя: "
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Stretch"
+                         Text="{Binding ElementName=MainForm, Path=SelectedParam.Request, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <DataGrid ItemsSource="{Binding ElementName=MainForm, Path=SelectedParam.FindUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          CanUserAddRows="True"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Искомые сайты"
+                                            Binding="{Binding Path=Url, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            Width="100*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="Тип эмулируемого браузера: "
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="1"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Stretch"
+                          ItemsSource="{Binding Source={StaticResource BrowsersEnum}}"
+                          SelectedItem="{Binding ElementName=MainForm, Path=SelectedParam.Browser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <DataGrid Grid.Row="3"
+                      CanUserAddRows="True"
+                      ItemsSource="{Binding ElementName=MainForm, Path=SelectedParam.ExplicitDomain, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="100*"
+                                        Header="Сайты-исключения"
+                                        Binding="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </mah:MetroWindow>
