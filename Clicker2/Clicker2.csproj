@@ -75,10 +75,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="src\Control\ParamExecutor.cs" />
+    <Compile Include="src\Control\Searchers\Google.cs" />
     <Compile Include="src\Control\Searchers\Yandex.cs" />
     <Compile Include="src\Model\BrowserEnums.cs" />
     <Compile Include="src\Model\Searchers\ISearcher.cs" />
-    <Compile Include="src\Model\Searchers\Yandex.cs" />
     <Compile Include="src\Model\SeleniumParams.cs" />
     <Compile Include="src\Model\URLs\UrlClass.cs" />
     <Page Include="src\Forms\MainWindow.xaml">

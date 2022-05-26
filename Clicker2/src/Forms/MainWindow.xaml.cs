@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Clicker.src.Model;
+using Clicker2.src.Model.Searchers;
 using MahApps.Metro.Controls;
 
 namespace Clicker2
@@ -26,6 +28,7 @@ namespace Clicker2
     {
         private SeleniumParams selectedParam = new SeleniumParams();
         private ObservableCollection<SeleniumParams> paramList = new ObservableCollection<SeleniumParams>();
+        //private ObservableCollection<ISearcher> searcherList = null;
         private int counterParams = 1;
 
         private int maxProcCount = 1;
@@ -33,6 +36,19 @@ namespace Clicker2
         public MainWindow()
         {
             InitializeComponent();
+
+            Type baseType = typeof(ISearcher);
+            List<Type> tmp = baseType.Assembly.ExportedTypes.Where(t => baseType.IsAssignableFrom(t)).ToList();
+            tmp.Distinct();
+            //searcherList = new ObservableCollection<ISearcher>();
+            foreach (Type t in tmp)
+            {
+                if (!t.IsAbstract)
+                {
+                    var tmp1 = Activator.CreateInstance(t);
+                    searcherCombobox.Items.Add((tmp1 as ISearcher).Name);
+                }
+            }
         }
 
         public ObservableCollection<SeleniumParams> ParamList

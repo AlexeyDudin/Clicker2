@@ -20,8 +20,9 @@ namespace Clicker.src.Model
         private Browsers browser = Browsers.chrome;
 
         private string finderUrl = "";
+        private string finderUrlEnd = "com";
 
-        private ObservableCollection<string> explicitDomainList = new ObservableCollection<string>();
+        private ObservableCollection<UrlClass> explicitDomainList = new ObservableCollection<UrlClass>();
 
         private bool gotoPageAndRunNext = true;
         private bool gotoPageAndWait = false;
@@ -51,7 +52,7 @@ namespace Clicker.src.Model
         public string ParamName { get => paramName; set => paramName = value; }
         public string ProxyLogin { get => proxyLogin; set => proxyLogin = value; }
         public string ProxyPassword { get => proxyPassword; set => proxyPassword = value; }
-        public ObservableCollection<string> ExplicitDomain { get => explicitDomainList; set => explicitDomainList = value; }
+        public ObservableCollection<UrlClass> ExplicitDomain { get => explicitDomainList; set => explicitDomainList = value; }
         public bool GotoPageAndWait { get => gotoPageAndWait; set => gotoPageAndWait = value; }
         public bool GotoPageAndRun { get => gotoPageAndRun; set => gotoPageAndRun = value; }
         public int TimeWork { get => timeWork; set => timeWork = value; }
@@ -62,6 +63,7 @@ namespace Clicker.src.Model
         public bool UseImageLog { get => useImageLog; set => useImageLog = value; }
         public bool UseVideoLog { get => useVideoLog; set => useVideoLog = value; }
         public bool GotoPageAndRunNext { get => gotoPageAndRunNext; set => gotoPageAndRunNext = value; }
+        public string FinderUrlEnd { get => finderUrlEnd; set => finderUrlEnd = value; }
 
         private void OnPropertyChanged(string name)
         {

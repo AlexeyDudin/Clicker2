@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Clicker2.src.Control.Searchers
 {
-    public class Yandex : ISearcher
+    public class Google : ISearcher
     {
-        public override void InsertSearch(string text)
+        public override void ClickFindButton()
         {
             throw new NotImplementedException();
         }
@@ -20,25 +20,26 @@ namespace Clicker2.src.Control.Searchers
             throw new NotImplementedException();
         }
 
-        public override void ClickFindButton()
+        public override void InsertSearch(string text)
         {
             throw new NotImplementedException();
         }
 
         private void InitializeName()
         {
-            base.Name = "yandex";
+            base.Name = "google";
         }
 
-        public Yandex(IWebDriver driver)
+        public Google()
         {
+            InitializeName();
+        }
+
+        public Google(IWebDriver driver)
+        {
+            InitializeName();
             this.Driver = driver;
-            InitializeName();
         }
 
-        public Yandex()
-        {
-            InitializeName();
-        }
     }
 }
