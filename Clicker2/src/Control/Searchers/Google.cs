@@ -30,6 +30,26 @@ namespace Clicker2.src.Control.Searchers
             base.Name = "google";
         }
 
+        public override bool IsFoundPrivacyTools()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool IsFoundCookiePolicies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void FocusOnCoockie()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ClickAcceptTerms()
+        {
+            throw new NotImplementedException();
+        }
+
         public Google()
         {
             InitializeName();

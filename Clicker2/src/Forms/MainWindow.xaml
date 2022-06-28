@@ -7,10 +7,11 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:browsers="clr-namespace:Clicker.src.Model"
         xmlns:searchers="clr-namespace:Clicker2.src.Model.Searchers"
+        xmlns:valueConverter="clr-namespace:Clicker2.src.Control"
         xmlns:local="clr-namespace:Clicker2"
         mc:Ignorable="d"
-        Title="Кликер" Height="600" Width="800"
-        x:Name="MainForm">
+        Title="Кликер" Height="700" Width="1000"
+        x:Name="MainForm" Loaded="MainForm_Loaded">
 
     <mah:MetroWindow.Resources>
         <ObjectDataProvider x:Key="BrowsersEnum"
@@ -20,24 +21,30 @@
                 <x:Type TypeName="browsers:Browsers"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        
+
         <ObjectDataProvider x:Key="SeacherType"
                             MethodName="typeof">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="searchers:ISearcher"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        
-        
+
+        <valueConverter:IpToStringConverter x:Key="IpToStringConverter"/>
+        <valueConverter:PortToStringConverter x:Key="PortToStringConverter"/>
     </mah:MetroWindow.Resources>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <mah:NumericUpDown Value="{Binding ElementName=MainForm, Path=MaxProcCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                Minimum="1"
-                               Maximum="30"></mah:NumericUpDown>
+                               Maximum="30"
+                               Width="150"
+                               mah:TextBoxHelper.Watermark="Количество потоков"
+                               mah:TextBoxHelper.WatermarkAlignment="Right"
+                               mah:TextBoxHelper.AutoWatermark="True"
+                               ></mah:NumericUpDown>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*"/>
@@ -52,7 +59,18 @@
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       ItemsSource="{Binding ElementName=MainForm, Path=ParamList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                      SelectedItem="{Binding ElementName=MainForm, Path=SelectedParam, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      SelectedItem="{Binding ElementName=MainForm, Path=SelectedParam, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      SelectedIndex="0">
+                <!--<DataGrid.CellStyle>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="John">
+                                <Setter Property="Background" Value="LightGreen"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>-->
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Наименование задания" Width="100*" Binding="{Binding Path=ParamName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 </DataGrid.Columns>
@@ -71,11 +89,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -107,6 +130,10 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0"
                            Text="Тип эмулируемого браузера: "
                            VerticalAlignment="Center"
@@ -116,6 +143,22 @@
                           HorizontalAlignment="Stretch"
                           ItemsSource="{Binding Source={StaticResource BrowsersEnum}}"
                           SelectedItem="{Binding ElementName=MainForm, Path=SelectedParam.Browser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Обновить user-agent"
+                        Grid.Row="1"
+                        Width="150"
+                        Height="30"
+                        HorizontalAlignment="Right"/>
+                <!--<TextBlock Grid.Column="0"
+                           Grid.Row="1"
+                           Text="User-agent браузера: "
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>-->
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         mah:TextBoxHelper.UseFloatingWatermark="True"
+                         mah:TextBoxHelper.Watermark="User-agent браузера"
+                         mah:TextBoxHelper.WatermarkAlignment="Right"
+                         Text="{Binding ElementName=MainForm, Path=SelectedParam.UserAgent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <DataGrid Grid.Row="3"
                       CanUserAddRows="True"
@@ -124,7 +167,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="100*"
                                         Header="Сайты-исключения"
-                                        Binding="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        Binding="{Binding Path=Url, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
@@ -151,8 +194,180 @@
                          VerticalAlignment="Center"
                          VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Left"
-                         Text="{Binding ElementName=MainForm, Path=SelectedParam.FinderUrlEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                         Text="{Binding ElementName=MainForm, Path=SelectedParam.SearcherEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </Grid>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="479*"/>
+                    <ColumnDefinition Width="271*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0"
+                              Content="Зайти на страницу и выйти в промежуток времени"
+                              VerticalAlignment="Center"
+                              IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.GotoPageAndRunNext, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBlock Grid.Column="1"
+                               Text="от"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                    <mah:NumericUpDown Grid.Column="2"
+                                       Minimum="1"
+                                       Maximum="10"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       Value="{Binding ElementName=MainForm, Path=SelectedParam.MinBypass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="3"
+                               Text="до"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    <mah:NumericUpDown Grid.Column="4"
+                                       Minimum="1"
+                                       Maximum="10"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       Value="{Binding ElementName=MainForm, Path=SelectedParam.MaxByPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <CheckBox Grid.Row="1"
+                          Content="Зайти на страницу и оставаться на ней без действий"
+                          IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.GotoPageAndWait, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          Click="DeleteGotoPageAndRun" Grid.ColumnSpan="2"/>
+                <CheckBox Grid.Row="1"
+                          Content="Зайти на страницу и начать действия"
+                          IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.GotoPageAndRun, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          Click="DeleteGotoPageAndWait" Grid.ColumnSpan="2" Margin="0,26,0,0" Grid.RowSpan="2"/>
+            </Grid>
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         mah:TextBoxHelper.UseFloatingWatermark="True"
+                         mah:TextBoxHelper.Watermark="Ip-адрес Proxy"
+                         mah:TextBoxHelper.WatermarkAlignment="Right"
+                         Margin="2"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Text="{Binding ElementName=MainForm, Path=SelectedParam.ProxyIP.IPAddressAsString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <mah:NumericUpDown Grid.Column="1"
+                                   Margin="2"
+                                   mah:TextBoxHelper.UseFloatingWatermark="True"
+                                   mah:TextBoxHelper.WatermarkAlignment="Right"
+                                   mah:TextBoxHelper.Watermark="Proxy port"
+                                   Minimum="1"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Maximum="65535"
+                                   Value="{Binding ElementName=MainForm, Path=SelectedParam.ProxyPort.IPEndPointAsString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Column="2"
+                         Margin="2"
+                         mah:TextBoxHelper.UseFloatingWatermark="True"
+                         mah:TextBoxHelper.Watermark="Proxy login"
+                         mah:TextBoxHelper.WatermarkAlignment="Right"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Text="{Binding ElementName=MainForm, Path=SelectedParam.ProxyLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Column="3"
+                         Margin="2"
+                         mah:TextBoxHelper.UseFloatingWatermark="True"
+                         mah:TextBoxHelper.Watermark="Proxy password"
+                         mah:TextBoxHelper.WatermarkAlignment="Right"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Text="{Binding ElementName=MainForm, Path=SelectedParam.ProxyPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          Content="Использовать куки"
+                          IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.UseCookie, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <CheckBox Grid.Column="1"
+                          Content="Использовать JS"
+                          IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.UseJS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <mah:NumericUpDown Grid.Column="2"
+                                   Margin="2"
+                                   mah:TextBoxHelper.Watermark="Время ожидания рекапчи"
+                                   mah:TextBoxHelper.UseFloatingWatermark="True"
+                                   mah:TextBoxHelper.WatermarkAlignment="Right"
+                                   Value="{Binding ElementName=MainForm, Path=SelectedParam.TimeToWaitRecaptcha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <mah:NumericUpDown Grid.Column="0"
+                                   Margin="2"
+                                   mah:TextBoxHelper.Watermark="Ширина окна"
+                                   mah:TextBoxHelper.UseFloatingWatermark="True"
+                                   mah:TextBoxHelper.WatermarkAlignment="Right"
+                                   Value="{Binding ElementName=MainForm, Path=SelectedParam.ResX, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <mah:NumericUpDown Grid.Column="1"
+                                   Margin="2"
+                                   mah:TextBoxHelper.Watermark="Высота окна"
+                                   mah:TextBoxHelper.UseFloatingWatermark="True"
+                                   mah:TextBoxHelper.WatermarkAlignment="Right"
+                                   Value="{Binding ElementName=MainForm, Path=SelectedParam.ResY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </Grid>
+            <Grid Grid.Row="9">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <mah:NumericUpDown Grid.Column="0"
+                                   Margin="2"
+                                   mah:TextBoxHelper.Watermark="Минимальное время ожидания перехода на следующую страницу"
+                                   Value="{Binding ElementName=MainForm, Path=SelectedParam.TimeToWaitNextPageMin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <mah:NumericUpDown Grid.Column="1"
+                                   Margin="2"
+                                   mah:TextBoxHelper.Watermark="Максимальное время ожидания перехода на следующую страницу"
+                                   Value="{Binding ElementName=MainForm, Path=SelectedParam.TimeToWaitNextPageMax, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <DatePicker Grid.Column="2"
+                            Margin="2"
+                            mah:TextBoxHelper.Watermark="Время начала запуска"
+                            mah:TextBoxHelper.UseFloatingWatermark="True"
+                            mah:TextBoxHelper.WatermarkAlignment="Right"
+                            DisplayDate="{Binding ElementName=MainForm, Path=SelectedParam.TimeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Grid.Row="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          Content="Сохранять лог в текстовый файл"
+                          IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.UseTextLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Grid.Column="1"
+                          Content="Делать скриншоты"
+                          IsChecked="{Binding ElementName=MainForm, Path=SelectedParam.UseImageLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Button Grid.Row="11"
+                    Width="200"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    x:Name="RunWorkButton"
+                    Content="Запустить работу"
+                    Click="ButtonRunClick"/>
         </Grid>
     </Grid>
 </mah:MetroWindow>

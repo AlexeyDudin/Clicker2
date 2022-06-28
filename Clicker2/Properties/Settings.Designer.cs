@@ -12,7 +12,7 @@ namespace Clicker2.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,6 +20,283 @@ namespace Clicker2.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1280")]
+        public int BrowserSizeX {
+            get {
+                return ((int)(this["BrowserSizeX"]));
+            }
+            set {
+                this["BrowserSizeX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("720")]
+        public int BrowserSizeY {
+            get {
+                return ((int)(this["BrowserSizeY"]));
+            }
+            set {
+                this["BrowserSizeY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseMobileBrowser {
+            get {
+                return ((bool)(this["UseMobileBrowser"]));
+            }
+            set {
+                this["UseMobileBrowser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int BrowserName {
+            get {
+                return ((int)(this["BrowserName"]));
+            }
+            set {
+                this["BrowserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int timeToWaitNextPageMin {
+            get {
+                return ((int)(this["timeToWaitNextPageMin"]));
+            }
+            set {
+                this["timeToWaitNextPageMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int timeToWaitNextPageMax {
+            get {
+                return ((int)(this["timeToWaitNextPageMax"]));
+            }
+            set {
+                this["timeToWaitNextPageMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        public int timeToWaitRecaptcha {
+            get {
+                return ((int)(this["timeToWaitRecaptcha"]));
+            }
+            set {
+                this["timeToWaitRecaptcha"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int timeToWaitSiteAndElement {
+            get {
+                return ((int)(this["timeToWaitSiteAndElement"]));
+            }
+            set {
+                this["timeToWaitSiteAndElement"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("google")]
+        public string searcher {
+            get {
+                return ((string)(this["searcher"]));
+            }
+            set {
+                this["searcher"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".ru")]
+        public string searcherEnd {
+            get {
+                return ((string)(this["searcherEnd"]));
+            }
+            set {
+                this["searcherEnd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gotoPageAndGoNext {
+            get {
+                return ((bool)(this["gotoPageAndGoNext"]));
+            }
+            set {
+                this["gotoPageAndGoNext"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gotoPageAndWait {
+            get {
+                return ((bool)(this["gotoPageAndWait"]));
+            }
+            set {
+                this["gotoPageAndWait"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gotoPageAndStart {
+            get {
+                return ((bool)(this["gotoPageAndStart"]));
+            }
+            set {
+                this["gotoPageAndStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useCookie {
+            get {
+                return ((bool)(this["useCookie"]));
+            }
+            set {
+                this["useCookie"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useJS {
+            get {
+                return ((bool)(this["useJS"]));
+            }
+            set {
+                this["useJS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool saveFileLog {
+            get {
+                return ((bool)(this["saveFileLog"]));
+            }
+            set {
+                this["saveFileLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool saveScreenLog {
+            get {
+                return ((bool)(this["saveScreenLog"]));
+            }
+            set {
+                this["saveScreenLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string chromeBinaryPath {
+            get {
+                return ((string)(this["chromeBinaryPath"]));
+            }
+            set {
+                this["chromeBinaryPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Алексей\\AppData\\Local\\Epic Privacy Browser\\Application\\91.0.4472.124\\def" +
+            "ault_apps")]
+        public string extensionPath {
+            get {
+                return ((string)(this["extensionPath"]));
+            }
+            set {
+                this["extensionPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useAllSite {
+            get {
+                return ((bool)(this["useAllSite"]));
+            }
+            set {
+                this["useAllSite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int minByPass {
+            get {
+                return ((int)(this["minByPass"]));
+            }
+            set {
+                this["minByPass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int maxByPass {
+            get {
+                return ((int)(this["maxByPass"]));
+            }
+            set {
+                this["maxByPass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Drivers")]
+        public string ChromeDriver {
+            get {
+                return ((string)(this["ChromeDriver"]));
+            }
+            set {
+                this["ChromeDriver"] = value;
             }
         }
     }
